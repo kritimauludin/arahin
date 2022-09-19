@@ -20,11 +20,22 @@
                             <h6 class="d-inline">Last Update - </h6><span class="badge badge-info "> {{ date('j F Y | G.i', strtotime($bookchapter->updated_at))}} </span>
                         </div>
                         <div class="about-prea">
-			   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7326678056847065" crossorigin="anonymous"></script>
-			   <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7326678056847065" data-ad-slot="5118415995"></ins>
-			   <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7326678056847065" crossorigin="anonymous"></script>
+                        <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7326678056847065" data-ad-slot="5118415995"></ins>
+                        <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
 
                             {!! $bookchapter->body !!}
+                        </div>
+                        
+                        <div class="rounded border border-color-dark p-3 text-center">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    @if($previousChapter != false)<a href="/books/chapters/{{$previousChapter->slug}}" class="btn btn-dark btn-sm rounded float-left">Previous</a> @endif
+                                </div>
+                                <div class="col-lg-6">
+                                    @if($nextChapter != false)<a href="/books/chapters/{{$nextChapter->slug}}" class="btn btn-dark btn-sm rounded float-right">Next</a>@endif 
+                                </div>
+                            </div>
                         </div>
 			<hr>
 			<div class="fb-comments" data-href="https://arahin.ocumps.com/books/chapters/{{ $bookchapter->slug }}" data-width="100%" data-numbookchapters="5"></div>
@@ -42,20 +53,7 @@
                     </div>
 
                 </div>
-                <div class="col-lg-4">
-                    <div class="container d-flex justify-content-center align-items-center mt-2">
-                        <div class="rounded border border-color-dark p-3 text-center">
-                            <div class="row">
-                                    <div class="col-lg-6">
-                                        @if($previousChapter != false)<a href="/books/chapters/{{$previousChapter->slug}}" class="btn btn-dark btn-sm rounded">Previous</a> @endif
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <a href="/books/chapters/{{$nextChapter->slug}}" class="btn btn-dark btn-sm rounded">Next</a>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="col-lg-4">                    
                     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7326678056847065" crossorigin="anonymous"></script>
                     <!-- latest-read-vertical -->
                     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7326678056847065" data-ad-slot="8433413851" data-ad-format="auto" data-full-width-responsive="true"></ins>
