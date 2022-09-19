@@ -34,28 +34,34 @@ class BookController extends Controller
     }
     public function readChapter(BookChapter $bookchapter)
     {
-        $body = explode("<p>", $bookchapter->body);
-        $countedBody = count($body);
-        $item = 1;
-        $section = 1;
-        for ($i = 0; $i < $countedBody; $i++) {
-            if ($section % 10 == 0) {
-                $item += 1;
-                $section = 1;
-            }
-            $sections[$item][$section++] = $body[$i];
-        }
 
+        
+        $bookId = $bookchapter->book_id;
+        $chapter = $bookchapter->chapter;
+
+        $lastChapter = count(BookChapter::where('book_id', $bookId)->get());
+
+        if($chapter != 1){
+            $previousChapter = BookChapter::select('slug')->where('book_id', $bookId)->where('chapter', $chapter - 1)->first();
+        }else {
+            $previousChapter = false;
+        }
+        if($chapter != $lastChapter){
+            $nextChapter = BookChapter::select('slug')->where('book_id', $bookId)->where('chapter', $chapter + 1)->first();
+        }else {
+            $nextChapter = false;
+        }
+        
         $data['reader'] = $bookchapter->reader + 1;
         BookChapter::where('id', $bookchapter->id)->update($data);
-
-        // dd(count($sections[1]));
+        // dd($lastChapter);
         return view('reader.v-readChapter', [
             'bookchapter' => $bookchapter,
-            'book' => $bookchapter->book()->with('author')->get(),
-            'items' => $item,
-            'countedBody' => $countedBody,
-            'sections' => $sections
+            'nextChapter' => $nextChapter,
+            'previousChapter' => $previousChapter,
+            "runningNews" => Post::where('status', 1)->with(['author', 'category'])->latest()->take(5)->get(),
+            "mostReader" => Post::where('status', 1)->with(['author', 'category'])->take(5)->orderBy('reader', 'desc')->get(),
+            "bannerAds" => Ads::where('status', 1)->where('categoryads_id', 6)->get(),
         ]);
     }
 }
